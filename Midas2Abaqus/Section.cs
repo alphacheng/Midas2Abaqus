@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -311,8 +311,18 @@ namespace Midas2Abaqus
                             break;
                         }
                     case "L":
-                        abaSec = "L";
-                        break;
+                        {
+                            //Midas数据SB , 200, 200, 26, 26, 0, 0, 0, 0, 0, 0, NO
+                            //Abaqus数据section=L
+                            //200., 200., 26., 26.
+                            double A = double.Parse(dat[0]);
+                            double B = double.Parse(dat[1]);
+                            double t1 = double.Parse(dat[2]);
+                            double t2 = double.Parse(dat[3]);
+                            Area = A * B-(A-t1)*(B-t2);
+                            abaSec = A.ToString() + "," + B.ToString() + "," + t1.ToString() + "," + t2.ToString();
+                            break;
+                        }
                     case "T":
                         abaSec = "T";
                         break;
