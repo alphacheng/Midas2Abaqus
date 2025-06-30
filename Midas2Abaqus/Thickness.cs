@@ -1,14 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Midas2Abaqus
 {
     public class Thickness
     {
         public int NO { set; get; }
+
+        public string Name { set; get; }
         public string Type { set; get; }
         //面内面外厚度是否相同
         public bool IsSame { set; get; }
@@ -75,14 +78,29 @@ namespace Midas2Abaqus
                 ThicknessOut = ThicknessIn;
             }
         }
-        public Thickness(int no, string type, bool same, double Tin, double Tout,bool offset,int offType,double offValue)
+        public Thickness(int no, string type, string name,string same, double Tin, double Tout,string offset,int offType,double offValue)
         {
             NO = no;
+            Name = name;
             Type = type;
-            IsSame = same;
+            if (same == "YES")
+            {
+                IsSame = true;
+            }
+            else 
+            {
+                IsSame = false;
+            }
             ThicknessIn = Tin;
             ThicknessOut = Tout;
-            IsOffset = offset;
+            if (offset == "YES")
+            {
+                IsOffset = true;
+            }
+            else
+            {
+                IsOffset = false;
+            }
             OffType = offType;
             OffValue = offValue;
             if (IsSame)
